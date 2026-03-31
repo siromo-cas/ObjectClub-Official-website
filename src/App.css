@@ -1,0 +1,60 @@
+
+.hover-change {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    color: #e0e0e0; 
+    cursor: pointer;
+}
+
+    .hover-change:hover {
+        color: transparent; 
+    }
+
+        .hover-change:hover::after {
+            content: attr(data-hover);
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #ffcc00;
+        }
+
+
+.hover-tips {
+    position: relative;
+    cursor: help;
+}
+
+.tips-text {
+    visibility: hidden;
+    opacity: 0;
+    font-size: 0.7em;
+    color: #4ade80;
+    transition: 0.3s;
+    margin-left: 5px;
+}
+
+.hover-tips:hover .tips-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.hover-change, .hover-tips {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+@keyframes flash-text {
+    0% {
+        color: #ffcc00;
+    }
+
+    80% {
+        color: #ffcc00;
+    }
+
+    100% {
+        color: transparent;
+    }
+}
