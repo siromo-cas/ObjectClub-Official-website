@@ -125,7 +125,6 @@ function App() {
 
                     {/* ヘッダー */}
                     <header style={{ padding: '80px 5% 0', borderLeft: `4px solid ${colors.accent}`, marginLeft: '5%', marginTop: '40px' }}>
-                        <meta name="google-site-verification" content="aOxCXtJfHngm2jvkwZJ-bf0MtCzSJvhN8qgDT-HF6zg" />
                         <h1 style={{ fontSize: '2.2rem', letterSpacing: '0.5em', margin: 0, fontWeight: 700, color: colors.text }}>もの部</h1>
                     </header>
 
