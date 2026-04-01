@@ -131,20 +131,46 @@ function App() {
                     {/* メインヒーローエリア */}
                     <main style={{
                         display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'flex-start',
+                        flexDirection: window.innerWidth < 768 ? 'column' : 'row',
+                        alignItems: 'center', // これでスマホ時に左右中央に寄る
+                        justifyContent: 'center', // PC時に左右の余白を均等にする
                         padding: '60px 10%',
+                        width: '100%',
                         boxSizing: 'border-box',
-                        width: '100%'
+                        gap: '40px'
                     }}>
-                        <div style={{ writingMode: 'vertical-rl', fontSize: '1.4rem', color: colors.accent, letterSpacing: '0.4em', textOrientation: 'upright', whiteSpace: 'nowrap' }}>
+                        {/* 縦書きテキスト */}
+                        <div style={{
+                            writingMode: 'vertical-rl',
+                            fontSize: window.innerWidth < 768 ? '1.1rem' : '1.4rem', // スマホでは少し小さく
+                            color: colors.accent,
+                            letterSpacing: '0.4em',
+                            textOrientation: 'upright',
+                            whiteSpace: 'nowrap',
+                            height: window.innerWidth < 768 ? 'auto' : '400px' // スマホで高さが突き抜けないように
+                        }}>
                             いまは昔、竹取の変人といふもの有けり。
                         </div>
 
-                        <div style={{ flex: 1, minWidth: '40px' }}></div>
+                        {/* スペーサー（スマホでは消す） */}
+                        {window.innerWidth >= 768 && <div style={{ flex: 1, minWidth: '40px' }}></div>}
 
-                        <div style={{ display: 'flex', gap: '60px', alignItems: 'flex-start' }}>
-                            <div style={{ width: '480px', borderRadius: '2px', overflow: 'hidden', boxShadow: `0 20px 60px rgba(0,0,0,0.8)`, border: `1px solid rgba(255,255,255,0.05)` }}>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: window.innerWidth < 768 ? 'column' : 'row', // 中身もスマホで縦に
+                            gap: '30px',
+                            alignItems: 'center',
+                            width: '100%',
+                            maxWidth: '100%' // 絶対に突き抜けないように
+                        }}>
+                            {/* 動画エリア */}
+                            <div style={{
+                                width: '100%',
+                                maxWidth: '480px',
+                                margin: '0 auto', // これを追加！左右の隙間を自動で均等にする
+                                borderRadius: '2px',
+                                // ...その他のスタイル
+                            }}>
                                 <div style={{ paddingBottom: '56.25%', position: 'relative' }}>
                                     <iframe
                                         style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
@@ -153,7 +179,14 @@ function App() {
                                     ></iframe>
                                 </div>
                             </div>
-                            <div style={{ width: '200px', display: 'flex', flexDirection: 'column', gap: '30px' }}>
+
+                            {/* ニュースエリア */}
+                            <div style={{
+                                width: window.innerWidth < 768 ? '100%' : '200px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '20px'
+                            }}>
                                 <div style={{ borderLeft: `2px solid ${colors.accent}`, paddingLeft: '15px' }}>
                                     <div style={{ fontSize: '0.75rem', fontWeight: 'bold', marginBottom: '8px' }}>LATEST NEWS</div>
                                     <div style={{ fontSize: '0.7rem', color: '#889999', lineHeight: '1.8' }}>
@@ -203,7 +236,7 @@ function App() {
                                     { id: '01', handle: 'シロモ', role: '部長', bio: 'こんにちは。変人中学生のシロモです。いつもCG、竹で様々なものをつくっております。このサイトをつくったのも私です。', color: colors.accent },
                                     { id: '02', handle: '米粒', role: 'メンバー', bio: '（自己紹介データ待機中：31日公開予定）', color: '#889999' },
                                     { id: '03', handle: 'スーパー少年', role: 'メンバー', bio: '（自己紹介データ待機中：31日公開予定）', color: '#b0b0b0' },
-                                    { id: '04', handle: '堕天使error', role: 'メンバー', bio: '（自己紹介データ待機中：31日公開予定）', color: '#a34e4e' },
+                                    { id: '04', handle: 'ほむ', role: 'メンバー', bio: '（自己紹介データ待機中：31日公開予定）', color: '#a34e4e' },
                                 ].map((member) => (
                                     <div key={member.id} style={{ padding: '25px 20px', backgroundColor: '#0d1111', border: `1px solid ${member.color}33`, display: 'flex', flexDirection: 'column', gap: '12px', minHeight: '220px' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -233,12 +266,44 @@ function App() {
 
     // イントロ画面
     return (
-        <div className="notranslate" style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center', fontFamily: 'serif', fontSize: '2.5rem', position: 'fixed', top: 0, left: 0 }}>
-            <div style={{ letterSpacing: '0.1em' }}>
+        <div className="notranslate" style={{
+            backgroundColor: '#000',
+            color: '#fff',
+            minHeight: '100vh',
+            width: '100vw',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontFamily: 'serif',
+            // スマホ(768px未満)なら1.5rem、PCなら2.5remにする
+            fontSize: window.innerWidth < 768 ? '1.5rem' : '2.5rem',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            padding: '0 20px', // 画面端に文字がくっつかないように
+            boxSizing: 'border-box',
+            lineHeight: '1.5' // 行が重ならないように設定
+        }}>
+            <div style={{
+                letterSpacing: '0.1em',
+                textAlign: 'center', // スマホで万が一改行されても中央に
+                wordBreak: 'break-all' // 変なところで切れないように
+            }}>
                 <span>{displayText}</span>
-                <span style={{ display: 'inline-block', width: '2px', height: '1em', backgroundColor: colors.accent, marginLeft: '5px', animation: 'blink 0.8s infinite' }}></span>
+                <span style={{
+                    display: 'inline-block',
+                    width: '2px',
+                    height: '1em',
+                    backgroundColor: colors.accent,
+                    marginLeft: '5px',
+                    animation: 'blink 0.8s infinite',
+                    verticalAlign: 'middle' // カーソルの位置を調整
+                }}></span>
             </div>
-            <style>{`body { margin: 0; overflow: hidden; background: #000; } @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
+            <style>{`
+            body { margin: 0; overflow: hidden; background: #000; } 
+            @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        `}</style>
         </div>
     );
 }
